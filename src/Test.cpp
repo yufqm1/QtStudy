@@ -5,9 +5,21 @@ Test::Test(QWidget* parent)
     , ui(new Ui_Test)
 {
     ui->setupUi(this);
+    m_vlayout = new QVBoxLayout;
 
-    QVBoxLayout *vlayout = new QVBoxLayout;
+    // AddDashboard();
 
+    AddMVDShow();
+
+}
+
+Test::~Test()
+{
+    delete ui;
+}
+
+void Test::AddDashboard()
+{
     dashBoard = new DrawDashboard(this);
 
 
@@ -22,17 +34,20 @@ Test::Test(QWidget* parent)
     horizontalSlider = new QSlider(Qt::Horizontal,this);
     horizontalSlider->setGeometry(0,450,800,30);
 
-    vlayout->addWidget(dashBoard);
-    vlayout->addWidget(horizontalSlider);
+    m_vlayout->addWidget(dashBoard);
+    m_vlayout->addWidget(horizontalSlider);
 
-    connect(horizontalSlider,&QSlider::valueChanged,dashBoard,&DrawDashboard::valueChanged);
-
+    connect(horizontalSlider,&QSlider::valueChanged,dashBoard,&DrawDashboard::valChanged);
 }
 
-Test::~Test()
+void Test::AddMVDShow()
 {
-    delete ui; 
+    wxlistView = new WXListView(this);
+    m_vlayout->addWidget(wxlistView);
 }
+
+
+
 void Test::on_pushButton_clicked()
 {
 
