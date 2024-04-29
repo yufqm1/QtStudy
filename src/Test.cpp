@@ -1,5 +1,6 @@
 #include "Test.h"
 #include <QVBoxLayout>
+#include <QDebug>
 Test::Test(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui_Test)
@@ -37,13 +38,22 @@ void Test::AddDashboard()
     m_vlayout->addWidget(dashBoard);
     m_vlayout->addWidget(horizontalSlider);
 
-    connect(horizontalSlider,&QSlider::valueChanged,dashBoard,&DrawDashboard::valChanged);
+    connect(horizontalSlider,&QSlider::valueChanged,dashBoard,&DrawDashboard::valueChanged);
 }
 
 void Test::AddMVDShow()
 {
     wxlistView = new WXListView(this);
     m_vlayout->addWidget(wxlistView);
+}
+
+void Test::mousePressEvent(QMouseEvent *event)
+{
+    qDebug() << "hhhhhhhh" ;
+    if(event->button() == Qt::LeftButton)
+    {
+        qDebug() << "LeftButton";
+    }
 }
 
 

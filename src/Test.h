@@ -5,6 +5,7 @@
 #include "drawdashboard.h"
 #include <QSlider>
 #include <QVBoxLayout>
+#include <QMouseEvent>
 class Test : public QMainWindow {
     Q_OBJECT
     
@@ -13,6 +14,8 @@ public:
     ~Test();
     void AddDashboard();
     void AddMVDShow();
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
 private slots:
     void on_pushButton_clicked();
 

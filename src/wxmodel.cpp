@@ -19,6 +19,11 @@ WXModel::~WXModel()
 
 QModelIndex WXModel::index(int row, int column, const QModelIndex &parent) const
 {
+    if(!hasIndex(row,column,parent))
+    {
+        return QModelIndex();
+    }
+
     return createIndex(row,column);
 }
 
