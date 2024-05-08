@@ -28,7 +28,7 @@ private:
 public: // 曲线图
     void CreateChartFunc();
 
-public: // 柱状图
+public: // 柱状图  自绘
     void CreateHistogram();
     void createAction();
     void createMenu();
@@ -44,6 +44,8 @@ public: // 柱状图
     QTableView *table;
     QSplitter *splitter;    // 分裂器
     HistogramView *histogram;
+public: // 柱状图  QBarSet
+    void CreateHistogrambyQBarSet();
 
 public: // 饼图
     void CreatePiechart();
