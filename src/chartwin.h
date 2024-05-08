@@ -24,10 +24,12 @@ signals:
 private:
     QChartView *chartview;
     QChart *chart;
+
+public: // 曲线图
     void CreateChartFunc();
-    void CreateHistogram();
 
 public: // 柱状图
+    void CreateHistogram();
     void createAction();
     void createMenu();
     void setupModel();
@@ -40,9 +42,11 @@ public: // 柱状图
     QAction *openAct;
     QStandardItemModel *model;
     QTableView *table;
-    QSplitter *splitter;
+    QSplitter *splitter;    // 分裂器
     HistogramView *histogram;
 
+public: // 饼图
+    void CreatePiechart();
 
 };
 

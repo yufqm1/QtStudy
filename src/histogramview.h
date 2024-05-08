@@ -38,7 +38,7 @@ private:
 
 };
 
-
+// 参考： https://zhuanlan.zhihu.com/p/636586914
 
 
 #endif // HISTOGRAMVIEW_H

@@ -13,7 +13,8 @@ ChartWin::ChartWin(QWidget *parent)
     //setMaximumSize(500,400);
 
     //CreateChartFunc();
-    CreateHistogram();
+    //CreateHistogram();
+    CreatePiechart();
 
 }
 
@@ -112,14 +113,58 @@ void ChartWin::setupView()
 void ChartWin::slotOpen()
 {
     QString name = QFileDialog::getOpenFileName(this,"打 开",".","histogram files(*.txt)");
-    if(! name.isEmpty())
+    if(!name.isEmpty())
     {
         openFile(name);
     }
 }
+
+void ChartWin::CreatePiechart()
+{
+    chart = new QChart();
+    QPieSeries *series = new QPieSeries();
+    series->append("水果:30%",3);
+    series->append("零食:20%",2);
+    series->append("主食:50%",5);
+
+    series->setLabelsVisible(true);
+    series->setUseOpenGL(true);
+    series->slices().at(0)->setColor(QColor(13,128,217));   //设置颜色
+    series->slices().at(0)->setLabelColor(QColor(13,128,217));
+    series->slices().at(1)->setColor(QColor(69,13,217));
+    series->slices().at(1)->setLabelColor(QColor(69,13,217));
+    series->slices().at(2)->setColor(QColor(13,217,152));
+    series->slices().at(2)->setLabelColor(QColor(13,217,152));
+
+    chart->setTheme(QChart::ChartThemeLight);//设置白色主题
+    chart->setDropShadowEnabled(true);//背景阴影
+    chart->addSeries(series);
+
+    chart->setTitleBrush(QBrush(QColor(0,0,255)));//设置标题Brush
+    chart->setTitleFont(QFont("微软雅黑"));//设置标题字体
+    chart->setTitle("饼状图");
+
+    //修改说明样式
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);//底部对齐
+    chart->legend()->setBackgroundVisible(true);//设置背景是否可视
+    chart->legend()->setAutoFillBackground(true);//设置背景自动填充
+    chart->legend()->setColor(QColor(222,233,251));//设置颜色
+    chart->legend()->setLabelColor(QColor(0,100,255));//设置标签颜色
+    chart->legend()->setMaximumHeight(50);
+
+    QChartView* chartview = new QChartView(this);
+    chartview->setChart(chart);
+
+    setCentralWidget(chartview);
+
+    chartview->setRenderHint(QPainter::Antialiasing);
+
+
+}
 void ChartWin::openFile(QString path)
 {
-    if(! path.isEmpty())
+    if(!path.isEmpty())
     {
         QFile file(path);
         if(file.open(QFile::ReadOnly | QFile::Text))
