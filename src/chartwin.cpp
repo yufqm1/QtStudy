@@ -119,7 +119,7 @@ void ChartWin::slotOpen()
         openFile(name);
     }
 }
-
+//Circular water wave
 void ChartWin::CreateHistogrambyQBarSet()
 {
     QBarSet *set0 = new QBarSet("Jane");

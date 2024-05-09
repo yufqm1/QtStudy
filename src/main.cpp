@@ -9,17 +9,16 @@
 #include <QDir>
 
 #include "Test.h"
-#include "drawdashboard.h"
 #include "chartwin.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     Test test;
-    //test.show();
+    test.show();
 
     ChartWin cwin;
-    cwin.show();
+    //cwin.show();
 
     return a.exec();
 }

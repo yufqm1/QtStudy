@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include "wxmodel.h"
 #include "drawdashboard.h"
+#include "mywidget.h"
 #include <QSlider>
 #include <QVBoxLayout>
 #include <QMouseEvent>
@@ -14,6 +15,7 @@ public:
     ~Test();
     void AddDashboard();
     void AddMVDShow();
+    void AddMyWidget();
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 private slots:
@@ -24,6 +26,7 @@ private:
     QSlider *horizontalSlider;
     DrawDashboard* dashBoard;
     WXListView *wxlistView;
+    WaterProgressBar* widget;
 private:
     Ui_Test* ui;
     QVBoxLayout *m_vlayout;

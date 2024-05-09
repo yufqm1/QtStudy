@@ -10,6 +10,7 @@ SOURCES += \
     src/chartwin.cpp \
     src/drawdashboard.cpp \
     src/histogramview.cpp \
+    src/mywidget.cpp \
     src/wxmodel.cpp
 
 HEADERS += \
@@ -17,6 +18,7 @@ HEADERS += \
     src/chartwin.h \
     src/drawdashboard.h \
     src/histogramview.h \
+    src/mywidget.h \
     src/wxmodel.h
 
 FORMS += $$PWD/src/Test.ui

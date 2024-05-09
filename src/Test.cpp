@@ -9,9 +9,9 @@ Test::Test(QWidget* parent)
     m_vlayout = new QVBoxLayout;
 
     // AddDashboard();
-    // AddMVDShow();
+    //AddMVDShow();
     // AddChart();
-
+    AddMyWidget();
 }
 
 Test::~Test()
@@ -45,6 +45,19 @@ void Test::AddMVDShow()
 {
     wxlistView = new WXListView(this);
     m_vlayout->addWidget(wxlistView);
+}
+
+void Test::AddMyWidget()
+{
+    widget = new WaterProgressBar(this);
+    QRect rect = this->geometry();
+    //计算显示原点
+    int x = rect.width()/2 - widget->width() / 2;
+    int y = rect.height()/10;
+    widget->move(x, y);
+
+
+    m_vlayout->addWidget(widget);
 }
 
 void Test::mousePressEvent(QMouseEvent *event)
