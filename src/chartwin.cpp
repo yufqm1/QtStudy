@@ -12,16 +12,17 @@ ChartWin::ChartWin(QWidget *parent)
     setMinimumSize(500,400);
     //setMaximumSize(500,400);
 
-    //CreateChartFunc();
+    CreateChartFunc();
     //CreateHistogram();
     //CreatePiechart();
-    CreateHistogrambyQBarSet();
+    //CreateHistogrambyQBarSet();
 }
 
 void ChartWin::CreateChartFunc()
 {
     chartview = new QChartView(this);
     chart = new QChart();
+    chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->setTitle("sin/cos图表测试");
     chartview->setChart(chart);
 
@@ -156,7 +157,7 @@ void ChartWin::CreateHistogrambyQBarSet()
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
-    chart->legend()->setVisible(true);
+    chart->legend()->setVisible(true);// ??
     chart->legend()->setAlignment(Qt::AlignBottom);
 
     QChartView *chartView = new QChartView(this);
@@ -188,6 +189,7 @@ void ChartWin::CreatePiechart()
 
     chart->setTitleBrush(QBrush(QColor(0,0,255)));//设置标题Brush
     chart->setTitleFont(QFont("微软雅黑"));//设置标题字体
+    chart->setAnimationOptions(QChart::SeriesAnimations);
     chart->setTitle("饼状图");
 
     //修改说明样式
