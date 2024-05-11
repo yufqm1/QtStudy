@@ -185,3 +185,123 @@ void WaterProgressBar::drawBg(QPainter *painter)
     painter->drawEllipse(rect);
     painter->restore();
 }
+//********************RotatingProgressBar***************************************
+RotatingProgressBar::RotatingProgressBar(QWidget *parent) : QWidget(parent),
+    m_progress(0),
+    patternOffset(0),
+    primaryStripeColor(Qt::darkGreen),
+    secondaryStripeColor(Qt::green),
+    stripeWidth(10),
+    stripeSpacing(3)
+{
+
+    resize(300,40);
+
+    timer = new QTimer(this);
+    connect(timer,&QTimer::timeout,this,&RotatingProgressBar::updatePattern);
+    timer->start(50);
+}
+
+void RotatingProgressBar::setProgress(int value)
+{
+    m_progress=value;
+}
+
+int RotatingProgressBar::progress() const
+{
+    return m_progress;
+}
+
+void RotatingProgressBar::setStripeColors(const QColor &primaryColor, const QColor &secondColor)
+{
+    primaryStripeColor = primaryColor;
+    secondaryStripeColor = secondColor;
+}
+
+void RotatingProgressBar::setStripeWidth(int width)
+{
+    stripeWidth = width;
+}
+
+void RotatingProgressBar::setStripeSpacing(int spacing)
+{
+    stripeSpacing = spacing;
+}
+
+void RotatingProgressBar::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    //// 设置this的背景
+//    painter.setPen(Qt::NoPen);
+//    painter.setBrush(Qt::black);
+//    painter.drawRect(rect());
+
+    const qreal radius = height() / 2.0;
+    QRectF fullRect = rect();
+    QRectF progressRect(0,0,static_cast<int>(width() * (m_progress / 100.0)),height());
+
+    // 绘制带圆角的进度条背景
+    QPainterPath backgroundPath;
+    backgroundPath.addRoundedRect(fullRect,radius,radius);
+    painter.fillPath(backgroundPath,Qt::gray);
+
+    // 设置剪裁区，确保在圆角内不绘制条纹
+    QPainterPath progressPath;
+    progressPath.addRoundedRect(progressRect,radius,radius);
+    painter.setClipPath(progressPath);
+
+    // 计算条纹起始位置，确保在圆角之后开始
+    qreal stripeStartX = radius + patternOffset;
+
+    for(int x = stripeStartX - width(); x < width(); x+= stripeWidth + stripeSpacing)
+    {
+        QLinearGradient gradient(QPointF(x, 0), QPointF(x + height(), height()));
+        gradient.setColorAt(0, primaryStripeColor);
+        gradient.setColorAt(1, secondaryStripeColor);
+
+        QPainterPath path;
+        path.moveTo(QPointF(x, 0));
+        path.lineTo(QPointF(x + height(), height()));
+        path.lineTo(QPointF(x + height() + stripeWidth, height()));
+        path.lineTo(QPointF(x + stripeWidth, 0));
+        path.closeSubpath();
+
+        painter.fillPath(path, gradient);
+    }
+
+    painter.save();
+    painter.setFont(QFont("Arial",10));
+    painter.setPen(QPen(QColor(255,0,0)));
+    QString rate = QString("%1%").arg(m_progress);
+    painter.drawText(QPointF(rect().width()/2,rect().height()/2),rate);
+    painter.restore();
+
+}
+
+void RotatingProgressBar::updatePattern()
+{
+    patternOffset += 2;
+    if(patternOffset >= stripeWidth + stripeSpacing)
+    {
+        patternOffset = 0;
+    }
+
+    if(m_progress < 100)
+    {
+        m_progress += 1;
+    }else
+    {
+        m_progress = 0;
+    }
+
+    update();
+}
+
+
+
+
+
+
+
+

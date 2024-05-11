@@ -16,6 +16,7 @@ public:
     void AddDashboard();
     void AddMVDShow();
     void AddMyWidget();
+    void AddRotatingProgressBar();
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 private slots:
@@ -27,6 +28,7 @@ private:
     DrawDashboard* dashBoard;
     WXListView *wxlistView;
     WaterProgressBar* widget;
+    RotatingProgressBar *rotatingProgress;
 private:
     Ui_Test* ui;
     QVBoxLayout *m_vlayout;

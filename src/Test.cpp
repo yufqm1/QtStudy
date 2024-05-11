@@ -9,9 +9,10 @@ Test::Test(QWidget* parent)
     m_vlayout = new QVBoxLayout;
 
     // AddDashboard();
-    AddMVDShow();
+    //AddMVDShow();
     // AddChart();
     //AddMyWidget();
+    AddRotatingProgressBar();
 }
 
 Test::~Test()
@@ -58,6 +59,18 @@ void Test::AddMyWidget()
 
 
     m_vlayout->addWidget(widget);
+}
+
+void Test::AddRotatingProgressBar()
+{
+    rotatingProgress = new RotatingProgressBar(this);
+    QRect rect = this->geometry();
+    int x = rect.width() / 2 - rotatingProgress->width() / 2;
+    int y = rect.height() / 10;
+
+    rotatingProgress->move(x,y);
+
+    m_vlayout->addWidget(rotatingProgress);
 }
 
 void Test::mousePressEvent(QMouseEvent *event)
