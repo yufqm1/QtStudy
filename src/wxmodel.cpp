@@ -10,6 +10,12 @@
 WXModel::WXModel(QObject *parent) :
     QAbstractListModel(parent)
 {
+    for (int i = 0; i < 10; ++i)
+    {
+        WXData data;
+        data.setText(i);
+        appendData(data);
+    }
 }
 
 WXModel::~WXModel()
@@ -303,20 +309,14 @@ WXListView::WXListView(QWidget *parent) : QListView(parent)
     m_delegate = new WXDelegate();
 
     m_wxmodel = new WXModel();
-    for (int i = 0; i < 10; ++i)
-    {
-        WXData data;
-        data.setText(i);
-        m_wxmodel->appendData(data);
-    }
 
     this->setModel(m_wxmodel);
     this->setItemDelegate(m_delegate);
 
-    QScrollBar *hBar = horizontalScrollBar();
-    connect(hBar,&QScrollBar::valueChanged,this,&WXListView::onHValueChanged);
-    QScrollBar *vBar = verticalScrollBar();
-    connect(vBar,&QScrollBar::valueChanged,this,&WXListView::onVValueChanged);
+//    QScrollBar *hBar = horizontalScrollBar();
+//    connect(hBar,&QScrollBar::valueChanged,this,&WXListView::onHValueChanged);
+//    QScrollBar *vBar = verticalScrollBar();
+//    connect(vBar,&QScrollBar::valueChanged,this,&WXListView::onVValueChanged);
 
     connect(m_delegate,SIGNAL(removeItem(const QModelIndex &)),this,SLOT(onRemoveItem(const QModelIndex &)));
     connect(m_delegate,SIGNAL(topItem(const QModelIndex &)),this,SLOT(onTopItem(const QModelIndex &)));

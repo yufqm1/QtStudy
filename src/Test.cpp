@@ -9,9 +9,9 @@ Test::Test(QWidget* parent)
     m_vlayout = new QVBoxLayout;
 
     // AddDashboard();
-    //AddMVDShow();
+    AddMVDShow();
     // AddChart();
-    AddMyWidget();
+    //AddMyWidget();
 }
 
 Test::~Test()

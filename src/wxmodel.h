@@ -122,10 +122,6 @@ public:
     void setTopItem(const QModelIndex &index);
     void setRemoveItem(const QModelIndex &index);
 
-signals:
-    void topItem(const QModelIndex &index);
-    void removeItem(const QModelIndex &index);
-
 public slots:
     void onHValueChanged(int value);
     void onVValueChanged(int value);
